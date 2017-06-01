@@ -1,6 +1,22 @@
 <div id="mainContent">
 
-
+		<ul id="articlesHolder">
+		  {{#each articles}} 
+			  	<li id="{{this._id}}" class="article">
+			  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
+			  	  <div class="aritcleCopy">
+				  	  <a href="{{this.link}}" class="label" target="_blank">		
+				  	  	<span>{{this.title}}</span>
+				  	  </a>
+				  	  <p>{{this.summary}}</p>			  	  	
+			  	  </div>
+				  <ul class="buttons">
+				  	<li class="button">Save Article ></li>
+				  	<li class="button">Add Comment ></li>
+				  </ul>
+			  	</li> 
+		  {{/each}}
+		</ul>	
 
 
 </div>
