@@ -22,6 +22,14 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  date: {
+    type: Number,
+    required: true
+  },
+  saved: {
+    type: Boolean,
+    default: false
+  },
   comment: {
     type: Schema.Types.ObjectId,
     ref: "Comment"
