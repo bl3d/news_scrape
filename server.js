@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 // Database configuration with mongoose
 // mongoose.connect("mongodb://localhost/newsScraper"); //local
-mongoose.connect("mongodb://localhost/newsScraper"); //remote
+mongoose.connect("mongodb://heroku_tnp516b5:3mdchlkpmvhubu7v5iie48diaq@ds163681.mlab.com:63681/heroku_tnp516b5"); //remote
 var db = mongoose.connection;
 
 // Show any mongoose errors
