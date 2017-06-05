@@ -48,8 +48,7 @@ $(document).on("click", ".saveThis", function() {
 
   $(this).addClass('savedAlready').removeClass('.saveThis').html('&#10004; Saved');
   thisArticle.addClass('saved');
-
-  // Now make an ajax call for the Article
+ 
   $.ajax({
     method: "POST",
     url: "/save/" + thisId
@@ -71,8 +70,7 @@ $(document).on("click", ".removeSaved", function() {
       location.reload();
     };    
   });
-
-  // Now make an ajax call for the Article
+ 
   $.ajax({
     method: "POST",
     url: "/unsave/" + thisId
@@ -82,12 +80,10 @@ $(document).on("click", ".removeSaved", function() {
 
 
 // launch notes modal for associated article
-$(document).on("click", ".commentThis", function() {
-  // alert('will launch comments modal');
+$(document).on("click", ".commentThis", function() { 
   var thisArticle = $(this).closest('.article');
   var thisId = thisArticle.attr("id"); 
-
-  // Now make an ajax call for the Article
+ 
   $.ajax({
     method: "GET",
     url: "/comments/" + thisId
@@ -108,7 +104,7 @@ $(document).on("click", ".commentThis", function() {
 
       $('#commentsHolder').html(comms);
       $('#savenote').attr('data-id', thisId);
-      $('#commentsModal').css({ opacity: 0.0, display: 'block' }).stop()
+      $('#commentsModal').css({ display: 'block' }).stop()
       .animate({ opacity: 1.0 }, 1000);
     }); 
 });
@@ -134,7 +130,8 @@ $(document).on("click", "#savenote", function() {
     // With that done
     .done(function(data) {
       // Log the response
-      // console.log(data); 
+      // console.log(data);
+       $('#'+thisId).find('.commentThis').click();
     });
 
   // Also, remove the values entered in the input and textarea for note entry
@@ -151,21 +148,16 @@ $(document).on("click", ".deleteComment", function() {
 
   thisArticle.stop().animate({ opacity: 0.0}, 750, function(){
     $(this).remove();
-    /*if ($('#articlesHolder').find('.article').length === 0) {
-      // alert('allGone');
-      location.reload();
-    };*/    
+    if ($('#commentsHolder').find('.comment').length === 0) { 
+      $('#commentsHolder').html('<li class="noRecords">There are currently no comments on this article.</li>');
+    };    
   });  
 
   // Now make an ajax call for the Article
   $.ajax({
     method: "POST",
     url: "/uncomment/" + thisId
-  })
-    .done(function(data) {
-      // 
-      
-    }); 
+  });
 });
 
 
@@ -183,6 +175,13 @@ $(document).on("click", "#closeModal", function() {
 
 // app state
 ////////////////////////////////////////////////////////////////////
+
+
+/*$.ajax({
+  method: "GET",
+  url: "/scrape"
+})*/
+
 
 //check for what page we are on and let menu know
 $(window).on('hashchange', function(e){

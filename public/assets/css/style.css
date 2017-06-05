@@ -230,6 +230,7 @@ ul.buttons{
     min-height: 250px;
     border: #616161 solid 1px;
     box-shadow: 4px 4px 5px rgba(0,0,0,0.35);
+    opacity: 0.0; /* to start*/
 }
 
 #commentsHolder{

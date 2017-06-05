@@ -172,15 +172,6 @@ router.post('/uncomment/:id', function (req, res){
       console.log(err);
     } 
     else {
-      /*Article.findByIdAndRemove( { "_id": req.params.id } , function (err, doc) {      
-        if (err) {
-          console.log(err);
-        } 
-        else {
-          
-          res.send(doc);
-        }
-      }); */
       res.send(doc);
     }
   });
