@@ -7,8 +7,8 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 // Set mongoose to leverage built in JavaScript ES6 Promises
-// mongoose.Promise = Promise;
-
+mongoose.Promise = Promise;
+var port = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -26,7 +26,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));*/
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/newsScraper");
+// mongoose.connect("mongodb://localhost/newsScraper"); //local
+mongoose.connect("mongodb://localhost/newsScraper"); //remote
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -51,6 +52,7 @@ app.use("/", routes);
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+app.listen(port, function() {
+  // console.log("App running on port 3000!");
+  console.log("running...");
 });
