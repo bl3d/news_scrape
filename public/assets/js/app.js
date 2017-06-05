@@ -3,21 +3,21 @@
 ////////////////////////////////////////////////////////////////////
 
 
-// save a note for the selected article
+// 
 $(document).on("click", "#home_link", function() {
   window.location.href = '/';
 });
 
 
 
-// save a note for the selected article
+// 
 $(document).on("click", "#saved_link", function() {
   window.location.href = '/saved';
 });
 
 
 
-// save a note for the selected article
+// 
 $(document).on("click", "#scrape_link", function() {
 
   //
@@ -28,7 +28,7 @@ $(document).on("click", "#scrape_link", function() {
     // once scrape is done, load home page to show new contents
     .done(function(data) {
        // location.reload();
-       window.location.href = '/';
+       window.location.href = '/';  
     });
 });
 
@@ -40,7 +40,7 @@ $(document).on("click", "#scrape_link", function() {
 ////////////////////////////////////////////////////////////////////
 
 
-// Whenever someone clicks a p tag
+// 
 $(document).on("click", ".saveThis", function() {
 
   var thisArticle = $(this).closest('.article');
@@ -58,7 +58,7 @@ $(document).on("click", ".saveThis", function() {
 
 
 
-// Whenever someone clicks a p tag
+// 
 $(document).on("click", ".removeSaved", function() {
 
   var thisArticle = $(this).closest('.article');
@@ -83,7 +83,34 @@ $(document).on("click", ".removeSaved", function() {
 
 // launch notes modal for associated article
 $(document).on("click", ".commentThis", function() {
-  alert('will launch comments modal');
+  // alert('will launch comments modal');
+  var thisArticle = $(this).closest('.article');
+  var thisId = thisArticle.attr("id"); 
+
+  // Now make an ajax call for the Article
+  $.ajax({
+    method: "GET",
+    url: "/comments/" + thisId
+  })
+    .done(function(data) {
+      // 
+      var comms = "";
+      for (var i = 0; i < data.comments.length; i++) {
+        // console.log(data.comments[i]);   
+        comms += "<li class='comment' data-id='"+data.comments[i]._id+"'><div class='copy'>"+
+        "<h5>"+data.comments[i].title+"</h5>"+
+        "<p>"+data.comments[i].body+"</p>"+
+        "</span><div class='deleteComment button'>Delete ></div></li>";    
+      }; 
+      if (data.comments.length === 0) {
+        comms = "<li class='noRecords'>There are currently no comments on this article.</li>";
+      };
+
+      $('#commentsHolder').html(comms);
+      $('#savenote').attr('data-id', thisId);
+      $('#commentsModal').css({ opacity: 0.0, display: 'block' }).stop()
+      .animate({ opacity: 1.0 }, 1000);
+    }); 
 });
 
 
@@ -96,7 +123,7 @@ $(document).on("click", "#savenote", function() {
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
-    url: "/articles/" + thisId,
+    url: "/comments/" + thisId,
     data: {
       // Value taken from title input
       title: $("#titleinput").val(),
@@ -107,9 +134,7 @@ $(document).on("click", "#savenote", function() {
     // With that done
     .done(function(data) {
       // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
+      // console.log(data); 
     });
 
   // Also, remove the values entered in the input and textarea for note entry
@@ -118,6 +143,40 @@ $(document).on("click", "#savenote", function() {
 });
 
 
+
+// delete specific comment for an article
+$(document).on("click", ".deleteComment", function() { 
+  var thisArticle = $(this).closest('.comment');
+  var thisId = thisArticle.attr("data-id"); 
+
+  thisArticle.stop().animate({ opacity: 0.0}, 750, function(){
+    $(this).remove();
+    /*if ($('#articlesHolder').find('.article').length === 0) {
+      // alert('allGone');
+      location.reload();
+    };*/    
+  });  
+
+  // Now make an ajax call for the Article
+  $.ajax({
+    method: "POST",
+    url: "/uncomment/" + thisId
+  })
+    .done(function(data) {
+      // 
+      
+    }); 
+});
+
+
+
+// close comments modal
+$(document).on("click", "#closeModal", function() {
+  $('#commentsModal').stop().animate({ opacity: 0.0 }, 500, function(){
+    $(this).css({ display: 'none' }).find('#commentsHolder')
+    .html('<li class="noRecords">There are currently no comments on this article.</li>');
+  }); 
+});
 
 
 

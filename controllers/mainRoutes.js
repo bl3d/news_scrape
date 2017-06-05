@@ -30,16 +30,12 @@ router.get("/scrape", function(req, res) {
       result.date = $(this).find('.byline').find(".timestamp").attr("data-utc-timestamp");
       result.img = $(this).find('.thumbnail').find('a').find('img').attr('src');
 
-      //use mogoose model instance
       var entry = new Article(result);
 
-      // console.log(entry); 
       entry.save(function(err, doc) {
-        // Log any errors
         if (err) {
           console.log(err);
         }
-        // Or log the doc
         else {
           console.log(doc);
         }
@@ -47,8 +43,7 @@ router.get("/scrape", function(req, res) {
 
     });
   });
-  // Tell the browser that we finished scraping the text
-  res.send("Scrape Complete");
+  res.send("Scrape Complete"); 
 });
 
 
@@ -56,13 +51,10 @@ router.get("/scrape", function(req, res) {
 
 router.get("/", function(req, res) {
   Article.find({}).sort({'date': -1}).limit(20).exec(function(err, found) {
-    // Log any errors if the server encounters one
     if (err) {
       return console.log(err);
     }
-    // Otherwise, send the result of this query to the browser
     else {
-      // res.json(found);
       var articleObject = {
         articles: found
       };      
@@ -76,13 +68,10 @@ router.get("/", function(req, res) {
 
 router.get("/saved", function(req, res) {
   Article.find({'saved': true}).sort({'date': -1}).limit(20).exec(function(err, found) {
-    // Log any errors if the server encounters one
     if (err) {
       return console.log(err);
     }
-    // Otherwise, send the result of this query to the browser
     else {
-      // res.json(found);
       var articleObject = {
         articles: found
       };      
@@ -96,16 +85,12 @@ router.get("/saved", function(req, res) {
 
 // save article
 router.post("/save/:id", function(req, res) { 
-  // Use the article id to find and update it's saved status
   Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
-  // Execute the above query
   .exec(function(err, doc) {
-    // Log any errors
     if (err) {
       console.log(err);
     }
     else {
-      // Or send the document to the browser
       res.send(doc);
     }
   });
@@ -114,20 +99,96 @@ router.post("/save/:id", function(req, res) {
 
 // remove saved article
 router.post("/unsave/:id", function(req, res) { 
-  // Use the article id to find and update it's saved status
   Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": false })
-  // Execute the above query
   .exec(function(err, doc) {
-    // Log any errors
     if (err) {
       console.log(err);
     }
     else {
-      // Or send the document to the browser
       res.send(doc);
     }
   });
 });
+
+
+
+//get comments for selected article
+router.get("/comments/:id", function(req, res) {
+  Article.findOne({ "_id": req.params.id })
+  .populate("comments")
+  .exec(function(error, doc) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      console.log(doc);
+      res.json(doc);
+    }
+  });
+});
+
+
+
+//save a comment for selected article
+router.post("/comments/:id", function(req, res) {  
+
+  var result = {
+    title: req.body.title,
+    body: req.body.body
+  };
+
+  var newComment = new Comment (result); 
+
+  console.log("full obj");
+  console.log(newComment);
+
+  newComment.save(function(error, doc) {
+    if (error) {
+      console.log(error);
+    } 
+    else { 
+      Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "comments": newComment }}) 
+      .exec(function(err, doc) { 
+        if (err) {
+          console.log(err);
+        }
+        else { 
+          // res.send(doc);
+          res.json(newComment);
+        }
+      });  
+    }
+  });
+});
+
+
+
+//delete specific comment for an article
+router.post('/uncomment/:id', function (req, res){
+  var commentId = req.params.id;
+  console.log('should remove: ' + commentId);
+  Comment.findByIdAndRemove( { "_id": req.params.id } , function (err, doc) {      
+    if (err) {
+      console.log(err);
+    } 
+    else {
+      /*Article.findByIdAndRemove( { "_id": req.params.id } , function (err, doc) {      
+        if (err) {
+          console.log(err);
+        } 
+        else {
+          
+          res.send(doc);
+        }
+      }); */
+      res.send(doc);
+    }
+  });
+
+});
+
+
+
 
 
 

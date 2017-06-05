@@ -34,6 +34,7 @@ header{
 	background-color: #000;
 	color: #fff;
 	height: 55px;
+	z-index: 100;
 }
 
 #headerTitle{
@@ -168,7 +169,7 @@ ul.buttons{
 	clear: both;
 }
 
-li.button{
+.button{
 	/*background-color: #f00;*/
 	border-radius: 2px;
 	padding: 4px 15px;
@@ -186,7 +187,7 @@ li.button{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ); /* IE6-9 */
 	transition: background 0.5s;
 }
-li.button:hover{
+.button:hover{
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
 	background: rgb(30,87,153); /* Old browsers */
 	background: -moz-linear-gradient(top,  rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
@@ -211,7 +212,121 @@ li.button:hover{
 
 
 
-@media screen and (max-width: 750px) {
 
+#commentsModal{
+	position: fixed;
+    width: 80%;
+    max-width: 650px;
+    max-height: 80vh;
+    display: none;
+    z-index: 500;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0%;
+    right: 0%;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: rgba(255,255,255,0.95);
+    min-height: 250px;
+    border: #616161 solid 1px;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.35);
+}
+
+#commentsHolder{
+	margin-top: 20px;
+	overflow: auto;
+}
+
+#commentsHolder .noRecords{
+	margin-top: 15px;
+	line-height: 40px;
+}
+
+#closeModal{
+    position: absolute;
+    right: 15px;
+    top: 9px;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 24px;	
+    cursor: pointer;
+    padding: 4px 11px;
+
+}
+
+li.comment{
+	background-color: #d4d4d4;
+	padding:10px 10px;
+	margin: 15px 0px;
+	min-height: 50px;
+}
+
+.comment .copy{
+	position: relative;	
+}
+
+.comment .copy h5, .comment .copy p{
+	width: calc(100% - 90px);
+}
+
+#commentsModal h4{
+    line-height: 40px;
+    margin-top: 15px;
+    width: 100%;
+    border-top: 1px dashed #969696;	
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	margin: 15px 0px;
+	padding: 5px;
+	    border: #969696 1px dashed;
+}
+
+
+.deleteComment{
+	position: absolute;
+	display: inline;
+	float: right;
+	padding: 7px 10px;
+	background-color: aqua;
+	border-radius: 4px;	
+	margin-top: 0px;
+	top: 50%;
+	right: 5px;
+	transform: translateY(-50%);
+}
+
+
+@media screen and (max-width: 756px) {
+	
+	header{
+		height: auto;
+	}
+
+	#mainMenu{
+		position: absolute !important;
+		display: flex !important;
+		width: 100% !important;
+		top: 55px !important;
+	}
+
+	.menuLink{
+	    width: 33.33%; 
+	    text-align: center;
+	    height: 40px !important;
+	    line-height: 40px !important;	  
+	    overflow: hidden;  
+	}
+
+	#pageTitle{
+		font-size: 3em !important;	
+		padding: 75px 0px 5px 0px !important;
+	}
+
+	#pageCaption{
+		font-size: 1.5em !important;
+		padding: 0px 0px 35px 0px !important;
+	}
 }
 

@@ -6,45 +6,43 @@
 
 <div id="mainContent">
 
-		<ul id="articlesHolder">
-		  {{#each articles}} 
-		  	{{#if this.saved}}
-		  	<!-- this article is marked as saved -->
- 			  	<li id="{{this._id}}" class="article saved" data-timestamp="{{this.date}}">
-			  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
-			  	  <div class="articleCopy">
-				  	  <a href="{{this.link}}" class="label" target="_blank">		
-				  	  	<span>{{this.title}}</span>
-				  	  </a>
-				  	  <p>{{this.summary}}</p>			  	  	
-			  	  </div>
-				  <ul class="buttons">
-				  	<li class="savedAlready button">&#10004; Saved</li>
-				  	<li class="commentThis button">View/Add Comments ></li>
-				  </ul>
-			  	</li> 
-		  	{{/if}} 		  
-		  	{{#unless this.saved}}
-		  	<!-- this article is not marked as saved -->
-			  	<li id="{{this._id}}" class="article" data-timestamp="{{this.date}}">
-			  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
-			  	  <div class="articleCopy">
-				  	  <a href="{{this.link}}" class="label" target="_blank">		
-				  	  	<span>{{this.title}}</span>
-				  	  </a>
-				  	  <p>{{this.summary}}</p>			  	  	
-			  	  </div>
-				  <ul class="buttons">
-				  	<li class="saveThis button">Save Article ></li>
-				  	<li class="commentThis button">View/Add Comments ></li>
-				  </ul>
-			  	</li> 
-		  	{{/unless}} 		  
+	<ul id="articlesHolder">
+	  {{#each articles}} 
+	  	{{#if this.saved}}
+	  	<!-- this article is marked as saved -->
+			<li id="{{this._id}}" class="article saved" data-timestamp="{{this.date}}">
+		  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
+		  	  <div class="articleCopy">
+			  	  <a href="{{this.link}}" class="label" target="_blank">		
+			  	  	<span>{{this.title}}</span>
+			  	  </a>
+			  	  <p>{{this.summary}}</p>			  	  	
+		  	  </div>
+			  <ul class="buttons">
+			  	<li class="savedAlready button">&#10004; Saved</li>
+			  </ul>
+		  	</li> 
+	  	{{/if}} 		  
+	  	{{#unless this.saved}}
+	  	<!-- this article is not marked as saved -->
+		  	<li id="{{this._id}}" class="article" data-timestamp="{{this.date}}">
+		  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
+		  	  <div class="articleCopy">
+			  	  <a href="{{this.link}}" class="label" target="_blank">		
+			  	  	<span>{{this.title}}</span>
+			  	  </a>
+			  	  <p>{{this.summary}}</p>			  	  	
+		  	  </div>
+			  <ul class="buttons">
+			  	<li class="saveThis button">Save Article ></li>
+			  </ul>
+		  	</li> 
+	  	{{/unless}} 		  
 
-		  {{else}}
-		  <!-- No records exist -->
-		  {{/each}}
-		</ul>	
+	  {{else}}
+	  	<li class="noRecords">No articles scraped yet, use the "Scrape New Articles" link above!</li>
+	  {{/each}}
+	</ul>	
 
 
 </div>

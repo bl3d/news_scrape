@@ -6,25 +6,43 @@
 
 <div id="mainContent">
 
-		<ul id="articlesHolder">
-		  {{#each articles}} 
-			  	<li id="{{this._id}}" class="article" data-timestamp="{{this.date}}">
-			  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
-			  	  <div class="articleCopy">
-				  	  <a href="{{this.link}}" class="label" target="_blank">		
-				  	  	<span>{{this.title}}</span>
-				  	  </a>
-				  	  <p>{{this.summary}}</p>			  	  	
-			  	  </div>
-				  <ul class="buttons">
-				  	<li class="removeSaved button">Remove From Saved ></li>
-				  	<li class="commentThis button">View/Add Comments ></li>
-				  </ul>
-			  	</li> 
-		  {{else}}
-		  	<li class="noRecords">Sorry, there are currently no records saved.</li>
-		  {{/each}}
-		</ul>	
+	<ul id="articlesHolder">
+	  {{#each articles}} 
+	  	<li id="{{this._id}}" class="article" data-timestamp="{{this.date}}">
+	  	  <img src="{{this.img}}" class="articleImg" alt="{{this.title}}">
+	  	  <div class="articleCopy">
+		  	  <a href="{{this.link}}" class="label" target="_blank">		
+		  	  	<span>{{this.title}}</span>
+		  	  </a>
+		  	  <p>{{this.summary}}</p>			  	  	
+	  	  </div>
+		  <ul class="buttons">
+		  	<li class="removeSaved button">Remove From Saved ></li>
+		  	<li class="commentThis button">View/Add Comments ></li>
+		  </ul>
+	  	</li> 
+	  {{else}}
+	  	<li class="noRecords">Sorry, there are currently no records saved.</li>
+	  {{/each}}
+	</ul>	
 
+
+	<div id="commentsModal">
+	  <div id="closeModal" class="button">X</div>
+	  <ul id="commentsHolder">
+		<li class="noRecords">There are currently no comments on this article.</li>			
+	  </ul> 
+	  <h4>Add a comment to this article</h4>
+	  <div id="commentForm">  
+        <!-- <br><label for="email">Email</label><br> -->
+        <input type="text" id="titleinput" name="title" placeholder="Enter Your Name Here"><br>
+
+        <!-- <br><label for="message">Message</label><br> -->
+        <textarea rows="4" cols="100" id="bodyinput" name="body" placeholder="Enter Your Message Here"></textarea>
+
+        <br><br>	 
+        <button class="button" data-id="" id="savenote">Save Comment ></button> 	
+	  </div>
+	</div>
 
 </div>
