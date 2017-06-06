@@ -177,13 +177,19 @@ $(document).on("click", "#closeModal", function() {
 ////////////////////////////////////////////////////////////////////
 
 
-/*$.ajax({
+$.ajax({
   method: "GET",
   url: "/scrape"
-})*/
+})
 
 
 //check for what page we are on and let menu know
-$(window).on('hashchange', function(e){
-    // do something...
-});
+switch(window.location.pathname){
+  case '/':
+    $('#home_link').addClass('active');
+    break;  
+
+    case '/saved':
+    $('#saved_link').addClass('active');
+    break;
+}

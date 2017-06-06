@@ -43,6 +43,7 @@ header{
 	font-size: 28px;
 	line-height: 55px;
 	padding: 0px 35px;
+	transition: all 0.5s;
 }
 
 ul#mainMenu{
@@ -63,13 +64,15 @@ li.menuLink{
 	line-height: 55px;
 	cursor: pointer;
 	border-right: 1px solid #656565;
-	transition: background-color 0.45s;
+	transition: all 0.5s;
 }
 li.menuLink:hover{
 	background-color: #565656;
 }
-li.munilink.active{
-	background-color: #797979;
+li.menuLink.active{
+	background-color: #fb5100 !important;
+	color: #000;
+	font-weight: bold;
 }
 
 
@@ -100,6 +103,7 @@ li.munilink.active{
 	margin: 0;
 	padding: 75px 0px 25px 0px;
 	text-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+	transition: font-size 0.5s;
 }
 
 #pageCaption{
@@ -110,6 +114,7 @@ li.munilink.active{
 	margin: 0;
 	padding: 0px 0px 65px 0px;
 	text-shadow: 3px 3px 4px rgba(0,0,0,0.5);
+	transition: font-size 0.5s;
 }
 
 
@@ -158,11 +163,13 @@ li.noRecords{
 	position: relative;
     left: 15px;
     padding-right: 15px;
-    padding-top: 7px;
+    /*padding-top: 7px;*/
 }
 .articleCopy a{
 	color: #000;
-	font-weight: bold;		
+	font-weight: bold;
+    padding: 6px 0px;
+    display: block;		
 }
 
 ul.buttons{
@@ -215,7 +222,7 @@ ul.buttons{
 
 #commentsModal{
 	position: fixed;
-    width: 80%;
+    width: 94%;
     max-width: 650px;
     max-height: 80vh;
     display: none;
@@ -231,11 +238,11 @@ ul.buttons{
     border: #616161 solid 1px;
     box-shadow: 4px 4px 5px rgba(0,0,0,0.35);
     opacity: 0.0; /* to start*/
+    overflow: auto;
 }
 
 #commentsHolder{
-	margin-top: 20px;
-	overflow: auto;
+	margin-top: 30px;	
 }
 
 #commentsHolder .noRecords{
@@ -246,7 +253,7 @@ ul.buttons{
 #closeModal{
     position: absolute;
     right: 15px;
-    top: 9px;
+    top: 5px;
     font-family: cursive;
     font-weight: bold;
     font-size: 24px;	
@@ -310,6 +317,14 @@ input[type=text], select, textarea {
 		display: flex !important;
 		width: 100% !important;
 		top: 55px !important;
+	    line-height: 40px !important;
+	    height: 40px !important;		
+	}
+
+	#headerTitle{
+		display: block;
+		width: 100%;
+    	text-align: center;		
 	}
 
 	.menuLink{
